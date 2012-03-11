@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual C# Express 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestingPipeServer", "TestingPipeServer\TestingPipeServer.csproj", "{5A23F005-0880-42CA-815F-D137A0B43CAA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestingPipeClient", "TestingPipeClient\TestingPipeClient.csproj", "{EC38D521-FED9-477B-A00F-01F746875612}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestingPipeServerWPF", "TestingPipeServerWPF\TestingPipeServerWPF.csproj", "{C5246C02-645A-4C73-801B-E3EF4C40EAE5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5A23F005-0880-42CA-815F-D137A0B43CAA}.Debug|x86.ActiveCfg = Debug|x86
+		{5A23F005-0880-42CA-815F-D137A0B43CAA}.Debug|x86.Build.0 = Debug|x86
+		{5A23F005-0880-42CA-815F-D137A0B43CAA}.Release|x86.ActiveCfg = Release|x86
+		{5A23F005-0880-42CA-815F-D137A0B43CAA}.Release|x86.Build.0 = Release|x86
+		{EC38D521-FED9-477B-A00F-01F746875612}.Debug|x86.ActiveCfg = Debug|x86
+		{EC38D521-FED9-477B-A00F-01F746875612}.Debug|x86.Build.0 = Debug|x86
+		{EC38D521-FED9-477B-A00F-01F746875612}.Release|x86.ActiveCfg = Release|x86
+		{EC38D521-FED9-477B-A00F-01F746875612}.Release|x86.Build.0 = Release|x86
+		{C5246C02-645A-4C73-801B-E3EF4C40EAE5}.Debug|x86.ActiveCfg = Debug|x86
+		{C5246C02-645A-4C73-801B-E3EF4C40EAE5}.Debug|x86.Build.0 = Debug|x86
+		{C5246C02-645A-4C73-801B-E3EF4C40EAE5}.Release|x86.ActiveCfg = Release|x86
+		{C5246C02-645A-4C73-801B-E3EF4C40EAE5}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
