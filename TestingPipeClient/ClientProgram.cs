@@ -11,17 +11,19 @@ class PipeClient
 	{
 		Console.WriteLine("Client application");
 
-		NamedPipesInterop.NamedPipeClient client = new NamedPipesInterop.NamedPipeClient();
-		client.OnError += (s, e) => { Console.WriteLine("Error occured: " + e.GetException().Message); };
-		client.OnMessageReceived += (s, m) =>
-		{
-			if (m.MessageType == PipeMessageTypes.AcknowledgeClientRegistration)
-				Console.WriteLine("Client successfully registered.");
-			else
+		NamedPipesInterop.NamedPipeClient client = new NamedPipesInterop.NamedPipeClient(
+			ActionOnError: (e) => { Console.WriteLine("Error occured: " + e.GetException().Message); },
+			ActionOnMessageReceived: (m) =>
 			{
-				Console.WriteLine(m.MessageType.ToString() + ": " + (m.AdditionalText ?? ""));
+				if (m.MessageType == PipeMessageTypes.AcknowledgeClientRegistration)
+					Console.WriteLine("Client successfully registered.");
+				else if (m.MessageType == PipeMessageTypes.Close)
+					Environment.Exit(1);
+				else
+				{
+					Console.WriteLine(m.MessageType.ToString() + ": " + (m.AdditionalText ?? ""));
+				}
 			}
-		};
-		client.Start();
+			).Start();
 	}
 }

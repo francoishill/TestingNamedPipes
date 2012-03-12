@@ -13,6 +13,9 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using SharedClasses;
 using System.Threading;
+using System.IO;
+using System.IO.Pipes;
+using System.Diagnostics;
 
 namespace TestingPipeServerWPF
 {
@@ -41,30 +44,25 @@ namespace TestingPipeServerWPF
 		{
 			AppendMessage("Server application");
 
-			server = new NamedPipesInterop.NamedPipeServer(NamedPipesInterop.APPMANAGER_PIPE_NAME);
-			server.OnError += (s, er) =>
-			{
-				AppendMessage(er.GetException().Message);
-			};
-			server.OnMessageReceived += (s, m) =>
+			server = new NamedPipesInterop.NamedPipeServer(
+			NamedPipesInterop.APPMANAGER_PIPE_NAME,
+			ActionOnError: (e1) => { Console.WriteLine("Error: " + e1.GetException().Message); },
+			ActionOnMessageReceived: (m, serv) =>
 			{
 				if (m.MessageType == PipeMessageTypes.ClientRegistrationRequest)
-					new Timer(
-						delegate
-						{
-							server.SendMessageToClient(PipeMessageTypes.unknown, "TestingPipeClient", "Hallo sexy");
-							server.SendMessageToClient(PipeMessageTypes.unknown, "TestingPipeClient.vshost", "Hallo sexy");
-						},
-						null,
-						TimeSpan.FromSeconds(0),
-						TimeSpan.FromSeconds(2));
-			};
-			server.Run();
+					AppendMessage("Client registered: " + m.AdditionalText);
+			}).Start();
 		}
 
 		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
 		{
-			//server.Stop();
+			server.Stop();
+		}
+
+		private void ButtonClose_Click(object sender, RoutedEventArgs e)
+		{
+			server.SendMessageToClient(PipeMessageTypes.Close, "TestingPipeClient");
+			server.SendMessageToClient(PipeMessageTypes.Close, "TestingPipeClient.vshost");
 		}
 	}
 }

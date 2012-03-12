@@ -13,24 +13,30 @@ class PipeServer
 	{
 		Console.WriteLine("Server application");
 
-		NamedPipesInterop.NamedPipeServer server = new NamedPipesInterop.NamedPipeServer(NamedPipesInterop.APPMANAGER_PIPE_NAME);
-		server.OnError += (s, e) =>
-		{
-			Console.WriteLine("Error: " + e.GetException().Message);
-		};
-		server.OnMessageReceived += (s, m) =>
-		{
-			if (m.MessageType == PipeMessageTypes.ClientRegistrationRequest)
-				new Timer(
-					delegate
-					{
-						server.SendMessageToClient(PipeMessageTypes.unknown, "TestingPipeClient", "Hallo sexy");
-						server.SendMessageToClient(PipeMessageTypes.unknown, "TestingPipeClient.vshost", "Hallo sexy");
-					},
-					null,
-					TimeSpan.FromSeconds(0),
-					TimeSpan.FromSeconds(2));
-		};
-		server.Run();
+		NamedPipesInterop.NamedPipeServer server1 = new NamedPipesInterop.NamedPipeServer(
+			NamedPipesInterop.APPMANAGER_PIPE_NAME,
+			ActionOnError: (e) => { Console.WriteLine("Error: " + e.GetException().Message); },
+			ActionOnMessageReceived: (m, server) =>
+			{
+				if (m.MessageType == PipeMessageTypes.ClientRegistrationRequest)
+					new Timer(
+						delegate
+						{
+							server.SendMessageToClient(PipeMessageTypes.unknown, "TestingPipeClient", "Hallo sexy");
+							server.SendMessageToClient(PipeMessageTypes.unknown, "TestingPipeClient.vshost", "Hallo sexy");
+						},
+						null,
+						TimeSpan.FromSeconds(0),
+						TimeSpan.FromSeconds(2));
+			});
+		//server.OnError += (s, e) =>
+		//{
+			
+		//};
+		//server.OnMessageReceived += (s, m) =>
+		//{
+			
+		//};
+		//server.Run();
 	}
 }
