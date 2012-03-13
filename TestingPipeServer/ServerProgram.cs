@@ -28,15 +28,10 @@ class PipeServer
 						null,
 						TimeSpan.FromSeconds(0),
 						TimeSpan.FromSeconds(2));
-			});
-		//server.OnError += (s, e) =>
-		//{
-			
-		//};
-		//server.OnMessageReceived += (s, m) =>
-		//{
-			
-		//};
-		//server.Run();
+			},
+			ActionOnClientRegistered: (c) =>
+			{
+				Console.WriteLine("Client registered");
+			}).Start();
 	}
 }

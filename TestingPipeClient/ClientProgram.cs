@@ -11,7 +11,8 @@ class PipeClient
 	{
 		Console.WriteLine("Client application");
 
-		NamedPipesInterop.NamedPipeClient client = new NamedPipesInterop.NamedPipeClient(
+		//NamedPipesInterop.NamedPipeClient client = new NamedPipesInterop.NamedPipeClient(
+		NamedPipesInterop.NamedPipeClient.StartNewPipeClient(
 			ActionOnError: (e) => { Console.WriteLine("Error occured: " + e.GetException().Message); },
 			ActionOnMessageReceived: (m) =>
 			{
@@ -24,6 +25,6 @@ class PipeClient
 					Console.WriteLine(m.MessageType.ToString() + ": " + (m.AdditionalText ?? ""));
 				}
 			}
-			).Start();
+			);
 	}
 }

@@ -45,7 +45,7 @@ namespace TestingPipeServerWPF
 			AppendMessage("Server application");
 
 			server = new NamedPipesInterop.NamedPipeServer(
-			NamedPipesInterop.APPMANAGER_PIPE_NAME,
+			PipeName: NamedPipesInterop.APPMANAGER_PIPE_NAME,
 			ActionOnError: (e1) => { Console.WriteLine("Error: " + e1.GetException().Message); },
 			ActionOnMessageReceived: (m, serv) =>
 			{
